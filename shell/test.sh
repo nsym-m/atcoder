@@ -7,6 +7,7 @@ current=$(pwd)
 
 cd "contests/$contest/$task"
 
+# テスト実行
 oj t -c "./main"
 
 cd $current

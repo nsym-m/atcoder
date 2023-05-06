@@ -9,6 +9,7 @@ current=$(pwd)
 
 cd "contests/$contest/$task"
 
+# URL付きで問題提出
 oj s $url main.go
 
 cd $current
