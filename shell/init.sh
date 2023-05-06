@@ -43,6 +43,8 @@ if [ -d "test" ] && [ -n "$(find test -name '*.in')" ] && [ -n "$(find test -nam
     if [ ! -f "main.go" ]; then
         cp $current/template/main.go .
     fi
+    echo "$contest" >$current/state
+    echo "$task" >>$current/state
     cd $current
     code "$current/$contestDir/main.go"
     make r
