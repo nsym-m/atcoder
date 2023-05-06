@@ -45,10 +45,13 @@ contestDir="contests/$contest/$task"
 
 # TODO: 下記のif文を正しい形に修正
 if [ -d "test" ] && [ -n "$(find test -name '*.in')" ] && [ -n "$(find test -name '*.out')" ]; then
+    if [ ! -f "main.go" ]; then
+        cp $current/template/main.go .
+    fi
     cd $current
-    echo "testファイルが既に存在します contest: ${contest}, task: ${task}"
     code "$current/$contestDir/main.go"
-    exit 1
+    make r
+    exit
 fi
 
 oj d $url
