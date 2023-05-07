@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -13,8 +12,8 @@ var scanner *bufio.Scanner
 
 func main() {
 
-	in1 := readInt(scanner)
-	in2 := readInts(scanner)
+	in1 := readInt()
+	in2 := readInts()
 	var res int
 
 	fmt.Println(loop(in1, res, in2))
@@ -41,24 +40,10 @@ func loop(n, res int, ints []int) int {
 // --- init
 
 func init() {
-	var reader io.Reader
-
-	if len(os.Args) > 1 {
-		file, err := os.Open(os.Args[1])
-		if err != nil {
-			fmt.Println("ファイルを開けません:", err)
-			os.Exit(1)
-		}
-		defer file.Close()
-		reader = file
-	} else {
-		reader = os.Stdin
-	}
-
-	scanner = bufio.NewScanner(reader)
+	scanner = bufio.NewScanner(os.Stdin)
 }
 
-func readInt(scanner *bufio.Scanner) int {
+func readInt() int {
 	scanner.Scan()
 	i, err := strconv.Atoi(scanner.Text())
 	if err != nil {
@@ -67,12 +52,12 @@ func readInt(scanner *bufio.Scanner) int {
 	return i
 }
 
-func readString(scanner *bufio.Scanner) string {
+func readString() string {
 	scanner.Scan()
 	return scanner.Text()
 }
 
-func readInts(scanner *bufio.Scanner) []int {
+func readInts() []int {
 	scanner.Scan()
 	inputStr := scanner.Text()
 	inputStrs := strings.Split(inputStr, " ")
