@@ -44,9 +44,13 @@ func init() {
 	scanner = bufio.NewScanner(reader)
 }
 
-func readInt(scanner *bufio.Scanner) (int, error) {
+func readInt(scanner *bufio.Scanner) int {
 	scanner.Scan()
-	return strconv.Atoi(scanner.Text())
+	i, err := strconv.Atoi(scanner.Text())
+	if err != nil {
+		panic(err)
+	}
+	return i
 }
 
 func readString(scanner *bufio.Scanner) string {
@@ -54,7 +58,7 @@ func readString(scanner *bufio.Scanner) string {
 	return scanner.Text()
 }
 
-func readInts(scanner *bufio.Scanner) ([]int, error) {
+func readInts(scanner *bufio.Scanner) []int {
 	scanner.Scan()
 	inputStr := scanner.Text()
 	inputStrs := strings.Split(inputStr, " ")
@@ -63,10 +67,10 @@ func readInts(scanner *bufio.Scanner) ([]int, error) {
 	for i, inputStr := range inputStrs {
 		input, err := strconv.Atoi(inputStr)
 		if err != nil {
-			return nil, err
+			panic(err)
 		}
 		inputs[i] = input
 	}
 
-	return inputs, nil
+	return inputs
 }
