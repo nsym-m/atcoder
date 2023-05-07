@@ -9,13 +9,24 @@ import (
 	"strings"
 )
 
-func process(inputs []int) (outputs []int, err error) {
-	// ここに実際の処理を記述してください。
-	fmt.Println(inputs)
-	return outputs, nil
-}
+var scanner *bufio.Scanner
 
 func main() {
+
+	in := readString(scanner)
+	var res int
+	for _, v := range in {
+		if string(v) == "1" {
+			res++
+		}
+	}
+
+	fmt.Println(res)
+}
+
+// --- init
+
+func init() {
 	var reader io.Reader
 
 	if len(os.Args) > 1 {
@@ -30,41 +41,32 @@ func main() {
 		reader = os.Stdin
 	}
 
-	scanner := bufio.NewScanner(reader)
+	scanner = bufio.NewScanner(reader)
+}
 
+func readInt(scanner *bufio.Scanner) (int, error) {
 	scanner.Scan()
-	n, err := strconv.Atoi(scanner.Text())
-	if err != nil {
-		fmt.Println("入力が整数ではありません:", scanner.Text())
-		os.Exit(1)
-	}
+	return strconv.Atoi(scanner.Text())
+}
 
+func readString(scanner *bufio.Scanner) string {
+	scanner.Scan()
+	return scanner.Text()
+}
+
+func readInts(scanner *bufio.Scanner) ([]int, error) {
 	scanner.Scan()
 	inputStr := scanner.Text()
 	inputStrs := strings.Split(inputStr, " ")
-
-	if len(inputStrs) != n {
-		fmt.Println("入力された数と実際の要素数が一致しません。")
-		os.Exit(1)
-	}
 
 	inputs := make([]int, len(inputStrs))
 	for i, inputStr := range inputStrs {
 		input, err := strconv.Atoi(inputStr)
 		if err != nil {
-			fmt.Println("入力が整数ではありません:", inputStr)
-			os.Exit(1)
+			return nil, err
 		}
 		inputs[i] = input
 	}
 
-	outputs, err := process(inputs)
-	if err != nil {
-		fmt.Println("エラーが発生しました:", err)
-		os.Exit(1)
-	}
-
-	for _, output := range outputs {
-		fmt.Println(output)
-	}
+	return inputs, nil
 }
