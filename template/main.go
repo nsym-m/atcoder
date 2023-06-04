@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -58,4 +59,9 @@ func readInts() []int {
 	}
 
 	return inputs
+}
+
+func sortDesc(ints []int) []int {
+	sort.Sort(sort.Reverse(sort.IntSlice(ints)))
+	return ints
 }
