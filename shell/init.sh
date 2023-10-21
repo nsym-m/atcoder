@@ -9,13 +9,6 @@ echo ""
 
 url="${default_url}/${contest}/tasks/${task}"
 
-status=$(curl -I "${url}" 2>/dev/null | head -n 1 | cut -d$' ' -f2)
-
-if [ $status -ne 200 ]; then
-    echo "URLが正しくない為問題を取得できません。"
-    exit 1
-fi
-
 cd contests
 
 if [ ! -d "$contest" ]; then
