@@ -74,6 +74,18 @@ func reverseString(s string) string {
 	return string(rs)
 }
 
+func iToS(i int) string {
+	return strconv.Itoa(i)
+}
+
+func sToI(s string) int {
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return i
+}
+
 type Queue struct {
 	data [][2]int
 	size int
