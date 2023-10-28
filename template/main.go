@@ -73,3 +73,44 @@ func reverseString(s string) string {
 	}
 	return string(rs)
 }
+
+type Queue struct {
+	data [][2]int
+	size int
+}
+
+func NewQueue(len int) *Queue {
+	return &Queue{
+		data: make([][2]int, len, 0),
+		size: 0,
+	}
+}
+
+// キューにデータを追加する
+func (q *Queue) Push(i [2]int) {
+	q.data = append(q.data, i)
+	q.size++
+}
+
+// キューの最新データを削除
+func (q *Queue) Pop() bool {
+	if q.IsEmpty() {
+		return false
+	}
+	q.size--
+	q.data = q.data[1:]
+	return true
+}
+
+// キューの最新データを取得
+func (q *Queue) Front() [2]int {
+	return q.data[0]
+}
+
+func (q *Queue) IsEmpty() bool {
+	return q.size == 0
+}
+
+func (q *Queue) String() string {
+	return fmt.Sprint(q.data)
+}
