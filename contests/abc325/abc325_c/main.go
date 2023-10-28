@@ -24,53 +24,74 @@ func main() {
 		m = append(m, strings.Split(s, ""))
 	}
 
-	m2 := make(map[int][]int)
+	used := make(map[[2]int]*struct{})
 	var aa int
 	for i, s := range m {
 		for j, v := range s {
-			if v == "." {
+			if v == "." || used[[2]int{i, j}] != nil {
 				continue
 			}
-			m2[aa] = append(m2[aa], -1, i, j)
-			if isIncrement(m, i, j) {
-				aa++
+			q := NewQueue(0)
+			q.Push([2]int{i, j})
+			for !q.IsEmpty() {
+				p := q.Front()
+				q.Pop()
+				ii := p[0]
+				jj := p[1]
+				for k := 0; k < 8; k++ {
+					ix := ii + xi[k]
+					jx := jj + xj[k]
+					if 0 <= ix && ix < in[0] && 0 <= jx && jx < in[1] && m[ix][jx] == "#" && used[[2]int{ix, jx}] == nil {
+						used[[2]int{ix, jx}] = &struct{}{}
+						q.Push([2]int{ix, jx})
+					}
+				}
 			}
-			if i == 0 {
-				fmt.Println("aa, j")
-				fmt.Println(aa, j)
-			}
-			if i == 1 {
-				fmt.Println(aa, j)
-			}
+			aa++
 		}
 	}
-
-	fmt.Printf("%+v\n", m2)
-	fmt.Println(len(m2))
+	fmt.Println(aa)
 }
 
-func isIncrement(m [][]string, i, j int) bool {
+type Queue struct {
+	data [][2]int
+	size int
+}
 
-	// https://atcoder.jp/contests/abc325/editorial/7477
-	for k := 0; k < 8; k++ {
-		if isSharp(m, i+xi[k], j+xj[k]) {
-			if i == 1 {
-				fmt.Println("return false")
-			}
-			return false
-		}
+func NewQueue(len int) *Queue {
+	return &Queue{
+		data: make([][2]int, len, 0),
+		size: 0,
 	}
+}
+
+// キューにデータを追加する
+func (q *Queue) Push(i [2]int) {
+	q.data = append(q.data, i)
+	q.size++
+}
+
+// キューの最新データを削除
+func (q *Queue) Pop() bool {
+	if q.IsEmpty() {
+		return false
+	}
+	q.size--
+	q.data = q.data[1:]
 	return true
 }
 
-func isSharp(m [][]string, i, j int) bool {
-	if len(m) <= i || i < 0 {
-		return false
-	}
-	if len(m[i]) <= j || j < 0 {
-		return false
-	}
-	return m[i][j] == "#"
+// キューの最新データを取得
+func (q *Queue) Front() [2]int {
+	return q.data[0]
+}
+
+func (q *Queue) IsEmpty() bool {
+	return q.size == 0
+}
+
+func (q *Queue) String() string {
+	return fmt.Sprint(q.data)
 }
 
 // --- init
