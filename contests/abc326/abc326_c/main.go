@@ -19,6 +19,8 @@ func main() {
 	len := in[0]
 	m := in[1]
 
+	sort.Ints(in2)
+
 	var res int
 	for i := 0; i < len; i++ {
 		var ans int
