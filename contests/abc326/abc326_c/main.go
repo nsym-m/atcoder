@@ -14,27 +14,23 @@ var scanner *bufio.Scanner
 func main() {
 
 	in := readInts()
-	in2 := readInts()
-
-	len := in[0]
+	a := readInts()
+	n := in[0]
 	m := in[1]
 
-	sort.Ints(in2)
+	sort.Ints(a)
 
-	var res int
-	for i := 0; i < len; i++ {
-		var ans int
-		for _, v := range in2 {
-			if i < v && i+m >= v {
-				ans++
-			}
+	var ans int
+	var right int // 右を事前に定義しループ内で使い回す
+	for left := 0; left < n; left++ {
+		// 右がn(a配列のlength)以下でmまでの範囲内である限りプレゼントを取得
+		for right < n && a[right] < a[left]+m {
+			right++
 		}
-		if res < ans {
-			res = ans
-		}
+		ans = max(ans, right-left)
 	}
 
-	fmt.Println(res)
+	fmt.Println(ans)
 }
 
 // --- init
@@ -97,6 +93,13 @@ func sToI(s string) int {
 		panic(err)
 	}
 	return i
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 type Queue struct {
