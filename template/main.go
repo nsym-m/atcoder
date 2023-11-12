@@ -61,6 +61,11 @@ func readInts() []int {
 	return inputs
 }
 
+func int2() (int, int) {
+	ints := readInts()
+	return ints[0], ints[1]
+}
+
 func sortDesc(ints []int) []int {
 	sort.Sort(sort.Reverse(sort.IntSlice(ints)))
 	return ints
@@ -84,6 +89,13 @@ func sToI(s string) int {
 		panic(err)
 	}
 	return i
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 type Queue struct {
