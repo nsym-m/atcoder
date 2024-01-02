@@ -98,6 +98,13 @@ func max(a, b int) int {
 	return b
 }
 
+func maxu(a, b uint64) uint64 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 type Queue struct {
 	data [][2]int
 	size int
