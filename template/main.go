@@ -13,12 +13,10 @@ var scanner *bufio.Scanner
 
 func main() {
 
-	in := readString()
+	n := readInt()
 	var res int
-	for _, v := range in {
-		if string(v) == "1" {
-			res++
-		}
+	for i := 0; i < n; i++ {
+
 	}
 
 	fmt.Println(res)
@@ -66,9 +64,12 @@ func int2() (int, int) {
 	return ints[0], ints[1]
 }
 
-func sortDesc(ints []int) []int {
+func sortDesc(ints []int) {
 	sort.Sort(sort.Reverse(sort.IntSlice(ints)))
-	return ints
+}
+
+func sortAsc(ints []int) {
+	sort.Ints(ints)
 }
 
 func reverseString(s string) string {
@@ -103,6 +104,19 @@ func maxu(a, b uint64) uint64 {
 		return a
 	}
 	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func print(a ...any) {
+	for _, v := range a {
+		fmt.Printf("%+v\n", v)
+	}
 }
 
 type Queue struct {
