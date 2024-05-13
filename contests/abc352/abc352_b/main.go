@@ -16,29 +16,27 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	s := readString()
-	t := readString()
-	ii := 0
-	tl := len(t)
+	s := readStrAsIndex()
+	t := readStrAsIndex()
 	sl := len(s)
-	res := ""
-	for i := 0; i < sl; i++ {
-		if tl <= ii {
-			break
+	res := []int{}
+	ti := 0
+	for i, v := range t {
+		if s[ti] == v {
+			res = append(res, i+1)
+			ti++
 		}
-		for j := ii; j < tl; j++ {
-			if s[i] == t[j] {
-				res = strings.Join([]string{res, fmt.Sprintf("%d", j+1)}, " ")
-				ii = j + 1
-				break
-			}
+		if ti == sl {
+			break
 		}
 	}
 
-	out(strings.TrimSpace(res))
+	outInts(res)
 }
 
 // --- init
+
+const baseRune = 'a'
 
 func init() {
 	scanner.Buffer([]byte{}, math.MaxInt64)
@@ -79,6 +77,22 @@ func readInts() []int {
 func int2() (int, int) {
 	ints := readInts()
 	return ints[0], ints[1]
+}
+
+// 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
+func readStrAsIndex() []int {
+	scanner.Scan()
+	s := scanner.Text()
+	return sToIndex(s, baseRune)
+}
+
+// 文字列を基準文字に対する相対的な整数配列に変換
+func sToIndex(s string, baseRune rune) []int {
+	r := make([]int, len(s))
+	for i, v := range s {
+		r[i] = int(v - baseRune)
+	}
+	return r
 }
 
 func sortDesc(ints []int) {
@@ -194,4 +208,12 @@ func out(v ...interface{}) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+func outInts(sl []int) {
+	r := make([]string, len(sl))
+	for i, v := range sl {
+		r[i] = iToS(v)
+	}
+	out(strings.Join(r, " "))
 }
