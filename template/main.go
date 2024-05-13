@@ -10,23 +10,28 @@ import (
 	"strings"
 )
 
-var scanner *bufio.Scanner
+var scanner = bufio.NewScanner(os.Stdin)
+var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
+	defer flush()
 
-	n := readInt()
-	var res int
-	for i := 0; i < n; i++ {
+	s := readStrAsIndex()
+	res := []int{}
+	for i, v := range s {
 
 	}
 
-	fmt.Println(res)
+	out(res)
 }
 
 // --- init
 
+const baseRune = 'a'
+
 func init() {
-	scanner = bufio.NewScanner(os.Stdin)
+	scanner.Buffer([]byte{}, math.MaxInt64)
+	scanner.Split(bufio.ScanWords)
 }
 
 func readInt() int {
@@ -63,6 +68,22 @@ func readInts() []int {
 func int2() (int, int) {
 	ints := readInts()
 	return ints[0], ints[1]
+}
+
+// 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
+func readStrAsIndex() []int {
+	scanner.Scan()
+	s := scanner.Text()
+	return sToIndex(s, baseRune)
+}
+
+// 文字列を基準文字に対する相対的な整数配列に変換
+func sToIndex(s string, baseRune rune) []int {
+	r := make([]int, len(s))
+	for i, v := range s {
+		r[i] = int(v - baseRune)
+	}
+	return r
 }
 
 func sortDesc(ints []int) {
@@ -164,4 +185,26 @@ func (q *Queue) String() string {
 // ユークリッド距離
 func euclidean(x1, x2, y1, y2 int) float64 {
 	return math.Sqrt(math.Pow(float64(x1-x2), 2) + math.Pow(float64(y1-y2), 2))
+}
+
+func flush() {
+	e := wtr.Flush()
+	if e != nil {
+		panic(e)
+	}
+}
+
+func out(v ...interface{}) {
+	_, e := fmt.Fprintln(wtr, v...)
+	if e != nil {
+		panic(e)
+	}
+}
+
+func outInts(sl []int) {
+	r := make([]string, len(sl))
+	for i, v := range sl {
+		r[i] = iToS(v)
+	}
+	out(strings.Join(r, " "))
 }
