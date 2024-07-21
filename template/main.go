@@ -22,7 +22,7 @@ func main() {
 
 	}
 
-	out(res)
+	print(res)
 }
 
 // --- init
@@ -134,12 +134,6 @@ func min(a, b int) int {
 	return b
 }
 
-func print(a ...any) {
-	for _, v := range a {
-		fmt.Printf("%+v\n", v)
-	}
-}
-
 type Queue struct {
 	data [][2]int
 	size int
@@ -196,17 +190,17 @@ func flush() {
 	}
 }
 
-func out(v ...interface{}) {
+func print(v ...interface{}) {
 	_, e := fmt.Fprintln(wtr, v...)
 	if e != nil {
 		panic(e)
 	}
 }
 
-func outInts(sl []int) {
+func printInts(sl []int) {
 	r := make([]string, len(sl))
 	for i, v := range sl {
 		r[i] = iToS(v)
 	}
-	out(strings.Join(r, " "))
+	print(strings.Join(r, " "))
 }
