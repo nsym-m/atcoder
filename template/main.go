@@ -48,13 +48,12 @@ func readString() string {
 	return scanner.Text()
 }
 
-func readInts() []int {
-	scanner.Scan()
-	inputStr := scanner.Text()
-	inputStrs := strings.Split(inputStr, " ")
+func readInts(len int) []int {
 
-	inputs := make([]int, len(inputStrs))
-	for i, inputStr := range inputStrs {
+	inputs := make([]int, len)
+	for i := 0; i < len; i++ {
+		scanner.Scan()
+		inputStr := scanner.Text()
 		input, err := strconv.Atoi(inputStr)
 		if err != nil {
 			panic(err)
@@ -66,7 +65,7 @@ func readInts() []int {
 }
 
 func int2() (int, int) {
-	ints := readInts()
+	ints := readInts(2)
 	return ints[0], ints[1]
 }
 
@@ -191,6 +190,9 @@ func flush() {
 	e := wtr.Flush()
 	if e != nil {
 		panic(e)
+	}
+	if rec := recover(); rec != nil {
+		fmt.Printf("panic: %+v\n", rec)
 	}
 }
 
