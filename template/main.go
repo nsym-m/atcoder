@@ -16,9 +16,9 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	s := readStrAsIndex()
+	n, a := int2()
 	res := []int{}
-	for i, v := range s {
+	for i, v := range n {
 
 	}
 
@@ -48,7 +48,7 @@ func readString() string {
 	return scanner.Text()
 }
 
-func readInts(len int) []int {
+func ints(len int) []int {
 
 	inputs := make([]int, len)
 	for i := 0; i < len; i++ {
@@ -65,8 +65,13 @@ func readInts(len int) []int {
 }
 
 func int2() (int, int) {
-	ints := readInts(2)
+	ints := ints(2)
 	return ints[0], ints[1]
+}
+
+func int3() (int, int, int) {
+	ints := ints(3)
+	return ints[0], ints[1], ints[2]
 }
 
 // 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
