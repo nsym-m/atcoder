@@ -16,9 +16,10 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	n, a := int2()
+	n, x := int2()
+	a := ints(n)
 	res := []int{}
-	for i, v := range n {
+	for _, v := range a {
 
 	}
 
@@ -34,7 +35,7 @@ func init() {
 	scanner.Split(bufio.ScanWords)
 }
 
-func readInt() int {
+func int1() int {
 	scanner.Scan()
 	i, err := strconv.Atoi(scanner.Text())
 	if err != nil {
@@ -43,7 +44,7 @@ func readInt() int {
 	return i
 }
 
-func readString() string {
+func str() string {
 	scanner.Scan()
 	return scanner.Text()
 }
