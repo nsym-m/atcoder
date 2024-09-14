@@ -104,48 +104,12 @@ func sToIndex(s string, baseRune rune) []int {
 
 // 左から探す二分探索 binary search
 func bisectLeft(list []int, target int) int {
-
-	// digits := []int{111, 222, 333, 333, 333, 444, 555}
-	// sort.Search(len(digits), func(i int) bool { return digits[i] >= 333 }) //=> 2
-	// sort.Search(len(list), func(i int) bool { return list[i] > target })   //=> 5
-	// low := 0
-	// high := len(list) - 1
-	// for low < high {
-	// 	mid := (low + high) / 2
-	// 	if list[mid] == target {
-	// 		return mid
-	// 	}
-	// 	if list[mid] < target {
-	// 		low = mid + 1
-	// 	} else {
-	// 		high = mid - 1
-	// 	}
-	// }
 	return sort.SearchInts(list, target)
 }
 
 // 右から探す二分探索 binary search
 func bisectRight(list []int, target int) int {
-
 	return sort.Search(len(list), func(i int) bool { return list[i] > target })
-
-	// digits := []int{111, 222, 333, 333, 333, 444, 555}
-	// sort.Search(len(digits), func(i int) bool { return digits[i] >= 333 }) //=> 2
-	// sort.Search(len(digits), func(i int) bool { return digits[i] > 333 })  //=> 5
-	// low := 0
-	// high := len(list) - 1
-	// for low < high {
-	// 	mid := (low + high) / 2
-	// 	if list[mid] == target {
-	// 		return mid
-	// 	}
-	// 	if list[mid] < target {
-	// 		low = mid + 1
-	// 	} else {
-	// 		high = mid - 1
-	// 	}
-	// }
-	// return -1
 }
 
 func sortDesc(ints []int) {
