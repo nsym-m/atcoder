@@ -29,12 +29,10 @@ func main() {
 			if !taro[a] {
 				print("Yes")
 				taro[a] = true
-			} else {
-				print("No")
+				continue
 			}
-		} else {
-			print("No")
 		}
+		print("No")
 	}
 }
 
