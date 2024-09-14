@@ -17,10 +17,6 @@ func main() {
 	defer flush()
 
 	n, m := int2()
-	type abt struct {
-		a int
-		b string
-	}
 	taro := make(map[int]bool, n)
 	for i := 0; i < m; i++ {
 		a := int1()
