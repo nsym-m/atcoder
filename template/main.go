@@ -49,6 +49,16 @@ func str() string {
 	return scanner.Text()
 }
 
+func strs(len int) []string {
+
+	inputs := make([]string, len)
+	for i := 0; i < len; i++ {
+		scanner.Scan()
+		inputs[i] = scanner.Text()
+	}
+	return inputs
+}
+
 func ints(len int) []int {
 
 	inputs := make([]int, len)
@@ -73,6 +83,16 @@ func int2() (int, int) {
 func int3() (int, int, int) {
 	ints := ints(3)
 	return ints[0], ints[1], ints[2]
+}
+
+// 左から探す二分探索 binary search
+func bisectLeft(list []int, target int) int {
+	return sort.SearchInts(list, target)
+}
+
+// 右から探す二分探索 binary search
+func bisectRight(list []int, target int) int {
+	return sort.Search(len(list), func(i int) bool { return list[i] > target })
 }
 
 // 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
