@@ -21,12 +21,10 @@ func main() {
 	for i := 0; i < m; i++ {
 		a := int1()
 		b := str()
-		if b == "M" {
-			if !taro[a] {
-				print("Yes")
-				taro[a] = true
-				continue
-			}
+		if b == "M" && !taro[a] {
+			print("Yes")
+			taro[a] = true
+			continue
 		}
 		print("No")
 	}
