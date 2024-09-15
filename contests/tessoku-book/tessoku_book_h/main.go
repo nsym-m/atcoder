@@ -17,35 +17,53 @@ func main() {
 	defer flush()
 
 	h, w := int2()
-	hwm := make(map[int]map[int]int, h)
-	for i := 0; i < h; i++ {
-		hwm[i] = make(map[int]int, w)
-		intsx(w, hwm, i)
+	in := make([][]int, h+1)
+	for i := 1; i <= h; i++ {
+		in[i] = intsx(w)
 	}
+	hw := make([][]int, h+1)
+	for i := 0; i <= h; i++ {
+		hw[i] = make([]int, w+1)
+		if len(in[i]) == 0 {
+			in[i] = make([]int, w+1)
+		}
+	}
+	for i := 1; i <= h; i++ {
+		for j := 1; j <= w; j++ {
+			// 横軸の累積和を作成
+			hw[i][j] = hw[i][j-1] + in[i][j]
+		}
+	}
+	for i := 1; i <= h; i++ {
+		for j := 1; j <= w; j++ {
+			// 縦軸の累積和を作成
+			hw[i][j] = hw[i-1][j] + hw[i][j]
+		}
+	}
+
 	question := int1()
 	for i := 0; i < question; i++ {
 		q := ints(4)
-		for j := 0; j < 4; j++ {
-			q[j] -= 1
-		}
-		a := hwm[q[2]][q[3]] - hwm[q[0]-1][q[2]] - hwm[q[1]-1][q[3]] + hwm[q[0]-1][q[1]-1]
-		print(a)
+		a, b, c, d := q[0], q[1], q[2], q[3]
+
+		print(hw[c][d] - hw[a-1][d] - hw[c][b-1] + hw[a-1][b-1])
 	}
 }
 
-func intsx(len int, hwm map[int]map[int]int, key int) {
-	for i := 0; i < len; i++ {
+func intsx(len int) []int {
+
+	inputs := make([]int, len+1)
+	for i := 1; i <= len; i++ {
 		scanner.Scan()
 		inputStr := scanner.Text()
 		input, err := strconv.Atoi(inputStr)
 		if err != nil {
 			panic(err)
 		}
-		if _, ok := hwm[key-1]; ok {
-			hwm[key][i] += (hwm[key-1][i] - hwm[key-1][i-1])
-		}
-		hwm[key][i] += hwm[key][i-1] + input
+		inputs[i] = input
 	}
+
+	return inputs
 }
 
 // --- init
@@ -95,6 +113,11 @@ func int2() (int, int) {
 func int3() (int, int, int) {
 	ints := ints(3)
 	return ints[0], ints[1], ints[2]
+}
+
+func toSlice[T comparable](t ...T) []T {
+	list := make([]T, 0, len(t))
+	return append(list, t...)
 }
 
 // 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
