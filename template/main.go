@@ -85,6 +85,11 @@ func int3() (int, int, int) {
 	return ints[0], ints[1], ints[2]
 }
 
+func toSlice[T comparable](t ...T) []T {
+	list := make([]T, 0, len(t))
+	return append(list, t...)
+}
+
 // 左から探す二分探索 binary search
 func bisectLeft(list []int, target int) int {
 	return sort.SearchInts(list, target)
