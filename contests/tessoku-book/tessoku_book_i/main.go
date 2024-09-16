@@ -31,15 +31,27 @@ func main() {
 
 	// マス目の初期化
 	hw := make([][]int, h+1)
-	for i := 1; i <= h; i++ {
+	for i := 0; i <= h; i++ {
 		hw[i] = make([]int, w+1)
 	}
 
+	// 日毎の降雪量の増減
 	for i := 1; i <= n; i++ {
-		for j := a[i]; j <= c[i]; j++ {
-			for k := b[i]; k <= d[i]; k++ {
-				hw[j][k] += 1
-			}
+		hw[a[i]][b[i]] += 1
+		hw[a[i]][d[i]+1] -= 1
+		hw[c[i]+1][b[i]] -= 1
+		hw[c[i]+1][d[i]+1] += 1
+	}
+	// 横軸の累積和作成
+	for i := 1; i <= h; i++ {
+		for j := 1; j <= w; j++ {
+			hw[i][j] = hw[i][j] + hw[i][j-1]
+		}
+	}
+	// 縦軸の累積和作成
+	for i := 1; i <= h; i++ {
+		for j := 1; j <= w; j++ {
+			hw[i][j] = hw[i][j] + hw[i-1][j]
 		}
 	}
 	for i := 1; i <= h; i++ {
