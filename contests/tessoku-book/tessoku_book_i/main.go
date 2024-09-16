@@ -30,11 +30,10 @@ func main() {
 	}
 
 	// マス目の初期化
-	hw := make([][]int, h+1)
-	for i := 0; i <= h; i++ {
-		hw[i] = make([]int, w+1)
+	hw := make([][]int, h+2)
+	for i := 0; i <= h+1; i++ {
+		hw[i] = make([]int, w+2)
 	}
-
 	// 日毎の降雪量の増減
 	for i := 1; i <= n; i++ {
 		hw[a[i]][b[i]] += 1
@@ -55,7 +54,7 @@ func main() {
 		}
 	}
 	for i := 1; i <= h; i++ {
-		printInts(hw[i][1:])
+		printInts(hw[i][1 : len(hw[i])-1])
 	}
 }
 
