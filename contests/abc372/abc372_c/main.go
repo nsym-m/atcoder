@@ -16,33 +16,39 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	_, q := int2()
-	s := str()
+	n, q := int2()
+	s := sToIndex(str(), 'A')
+
+	ans := 0
+	for i := 0; i < n-2; i++ {
+		if check(s, i) {
+			ans++
+		}
+	}
 	for i := 0; i < q; i++ {
-		x, c := int1(), str()
-		s1 := s[:x-1]
-		s2 := s[x:]
-		s = s1 + c + s2
-		sl := len(s)
-		ans := 0
-
-		for l := 0; l < sl; l++ {
-			r := l + 1
-			c := 0
-
-			for l < r && r < sl && c < 2 {
-				targetss := string(s[l : r+1])
-				r++
-				c++
-				if targetss == "ABC" {
-					ans++
-					break
-				}
+		x, c := int1(), sToIndex(str(), 'A')
+		x--
+		for j := 0; j < 3; j++ {
+			idx := x - j
+			if idx >= 0 && idx+2 < n && check(s, idx) {
+				ans--
 			}
 		}
+		s[x] = c[0]
+		for j := 0; j < 3; j++ {
+			idx := x - j
+			if idx >= 0 && idx+2 < n && check(s, idx) {
+				ans++
+			}
+		}
+
 		print(ans)
 	}
 
+}
+
+func check(s []int, i int) bool {
+	return s[i] == 0 && s[i+1] == 1 && s[i+2] == 2
 }
 
 // --- init
