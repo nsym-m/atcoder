@@ -17,34 +17,27 @@ func main() {
 	defer flush()
 
 	n := int1()
-	as := make([][]int, 101)
-	for i, _ := range as {
-		as[i] = make([]int, 0, n)
-	}
+	na := make([]int, n+1)
 	for i := 1; i <= n; i++ {
-		a := int1()
-		as[a] = append(as[a], i)
+		na[i] = int1()
 	}
 	d := int1()
 	for i := 0; i < d; i++ {
 		l, r := int2()
-	LABEL:
-		for j := 100; j > 0; j-- {
-			if len(as[j]) == 0 {
-				continue
-			}
-			print("j", j)
-			print("l,r", l, r)
-			print("as[j]", as[j])
-			for k := len(as[j]) - 1; k >= 0; k-- {
-				if as[j][k] > r+1 || as[j][k] < l-1 {
-					print(as[j][k])
-					break LABEL
-				}
+		maxl := 0
+		maxr := 0
+		for _, n := range na[:l] {
+			if maxl < n {
+				maxl = n
 			}
 		}
+		for _, n := range na[r+1:] {
+			if maxr < n {
+				maxr = n
+			}
+		}
+		print(max(maxl, maxr))
 	}
-
 }
 
 // --- init
