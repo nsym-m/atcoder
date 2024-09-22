@@ -30,6 +30,7 @@ func main() {
 	l := 0
 	r := 1000000000
 
+	// 二分探索
 	for l < r {
 		mid := (l + r) / 2
 		if check(mid) {
