@@ -20,13 +20,10 @@ URL: https://atcoder.jp/contests/{contestId}/tasks/{taskId}
 下記{contestId}と{taskId}は上記URLのものを利用
 
 ```
-$ make i
-./shell/init.sh
-コンテストID: {contestId}
-問題ID: {taskId}
+$ make i c=contestId t=taskId
 ```
 
-`make i`を実行すると下記が実行されます。
+`make i c=contestId t=taskId`を実行すると下記が実行されます。
 
 - テンプレートコードの生成してファイルを開く
 - テストデータのダウンロード
@@ -36,4 +33,5 @@ $ make i
 ## その他
 
 - 既にダウンロード済みの問題を実行する時は`make r`を実行
-- 問題を提出する際は`make t`を実行
+- ダウンロード済みの他の問題を実行する時は`./state`ファイルの1,2行目を実行対象のコンテストID,問題IDに書き換えてから`make r`を実行
+- 問題を提出する際は`make s`を実行
