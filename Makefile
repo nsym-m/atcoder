@@ -1,6 +1,7 @@
 
+# make i c=コンテストID t=問題ID
 i:
-	./shell/init.sh
+	./shell/init.sh $(c) $(t)
 
 r:
 	./shell/run.sh

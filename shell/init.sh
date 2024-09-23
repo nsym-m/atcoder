@@ -2,10 +2,8 @@
 
 default_url="https://atcoder.jp/contests"
 current=$(pwd)
-
-read -p "コンテストID: " contest
-read -p "問題ID: " task
-echo ""
+contest=$1
+task=$2
 
 url="${default_url}/${contest}/tasks/${task}"
 
