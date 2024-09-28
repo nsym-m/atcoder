@@ -100,6 +100,27 @@ func bisectRight(list []int, target int) int {
 	return sort.Search(len(list), func(i int) bool { return list[i] > target })
 }
 
+// 独自定義の二分探索 binary search
+func bisect(list []int, target int) int {
+	low := 0
+	high := len(list) - 1
+
+	for low <= high {
+
+		mid := (low + high) / 2
+
+		if list[mid] == target {
+			return mid
+		}
+		if list[mid] < target {
+			low = mid + 1
+		} else {
+			high = mid - 1
+		}
+	}
+	return -1
+}
+
 // 文字列をアルファベット順のインデックスに変換して数値配列で読み取る
 func readStrAsIndex() []int {
 	scanner.Scan()
@@ -142,6 +163,15 @@ func sToI(s string) int {
 		panic(err)
 	}
 	return i
+}
+
+func maxlist(a []int, max int) int {
+	for _, v := range a {
+		if v > max {
+			max = v
+		}
+	}
+	return max
 }
 
 func max(a, b int) int {
