@@ -37,7 +37,7 @@ if [ -d "test" ] && [ -n "$(find test -name '*.in')" ] && [ -n "$(find test -nam
     echo "$contest" >$current/state
     echo "$task" >>$current/state
     cd $current
-    code "$current/$contestDir/main.go"
+    open "$current/$contestDir/main.go"
     make r
     exit
 fi
@@ -53,6 +53,6 @@ echo "$task" >>$current/state
 
 cd $current
 
-code "$current/$contestDir/main.go"
+open "$current/$contestDir/main.go"
 
 make r
