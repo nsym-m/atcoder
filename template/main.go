@@ -157,6 +157,10 @@ func iToS(i int) string {
 	return strconv.Itoa(i)
 }
 
+func i64ToS(i int64) string {
+	return strconv.FormatInt(i, 10)
+}
+
 func sToI(s string) int {
 	i, err := strconv.Atoi(s)
 	if err != nil {
@@ -262,6 +266,14 @@ func printInts(sl []int) {
 	r := make([]string, len(sl))
 	for i, v := range sl {
 		r[i] = iToS(v)
+	}
+	print(strings.Join(r, " "))
+}
+
+func printInts64(sl []int64) {
+	r := make([]string, len(sl))
+	for i, v := range sl {
+		r[i] = i64ToS(v)
 	}
 	print(strings.Join(r, " "))
 }
