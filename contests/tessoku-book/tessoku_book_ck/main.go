@@ -14,7 +14,6 @@ var scanner = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	// wip: https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_ck
 	defer flush()
 
 	n := int1()
