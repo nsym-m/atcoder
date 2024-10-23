@@ -18,51 +18,21 @@ func main() {
 	defer flush()
 
 	n := int1()
-	res := []int{}
-	f := func(x int) int {
-		return x ^ 3 + x
-	}
-	a := make([]int, n)
-	for i := 0; i < n; i++ {
-		a[i] = i
-	}
 
-	bisect(a, n)
+	l := 0.0
+	r := 100.0
 
-	// x=2
-	// n=x^3+x=10
-	// x
-	x ^ 3 + x = n
-	x = 10 / x * x * x
-
-	// x=3
-	// n=x^3+x=30
-
-	// x=4
-	// n=x^3+x=16*4+4=68
-
-	print(res)
-}
-
-// 独自定義の二分探索 binary search
-func bisect(list []int, n int) int {
-	low := 0
-	high := len(list) - 1
-
-	for low <= high {
-
-		mid := (low + high) / 2
-
-		if list[mid] == x {
-			return mid
-		}
-		if list[mid] < x {
-			low = mid + 1
+	for r-l > 1e-4 {
+		m := (l + r) / 2
+		x := m*m*m + m
+		if x > float64(n) {
+			r = m
 		} else {
-			high = mid - 1
+			l = m
 		}
 	}
-	return -1
+
+	print(l)
 }
 
 // --- init
