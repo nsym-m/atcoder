@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"math"
+	"math/bits"
 	"os"
 	"sort"
 	"strconv"
@@ -16,71 +17,37 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	baseStr := str()
-	s := sToIndex(baseStr, rune(0))
+	baseStr := str()                // inputから文字列取得
+	s := sToIndex(baseStr, rune(0)) // 文字列をrune変換の数値配列に変換
+	q := int1()                     // 質問の数をinputから取得
 	lens := len(s)
-
-	q := int1()
 	res := make([]string, 0, q)
-	print(lens)
+
 	for i := 0; i < q; i++ {
-		k := int1()
-		a := k / lens
-		print(i, k)
-		targetIndex := (k % lens) - 1
-		isEven := a%2 == 0
-		print(a, targetIndex, isEven)
-
-		n := log2(((k - k%lens) / lens) + 1)
-		print(log2((100 / 20) + 1))
-		print(log2((120 / 20) + 1))
-		print(n, k%lens)
-
-		// print(k)
-		// print(a, isEven, targetIndex)
-		if isEven {
-			r := s[targetIndex]
-			var reverse string
-			if r >= 97 {
-				reverse = string(rune(r - 32))
-			} else {
-				reverse = string(rune(r + 32))
-			}
-			res = append(res, reverse)
-		} else {
-			res = append(res, string(rune(s[targetIndex])))
+		k := int1() - 1 // k = 求める対象の連番 inputから取得(index換算のため-1)
+		t := k / lens   // t = k文字目は何ブロック目か
+		si := k % lens  // si = 求める文字がブロック中の何番目か
+		ans := s[si]
+		if popcount(t)%2 == 1 { // 奇数回右なら反転
+			ans = flip(rune(ans))
 		}
+		res = append(res, string(rune(ans)))
 	}
-
+	// 文字列配列をスペース区切りで出力
 	printStrs(res)
-
 }
 
-func log2(x int) float64 {
-	// math.Log computes the natural logarithm (ln).
-	return math.Log(float64(x)) / math.Log(2)
-}
-
-func mybisect(high int, target int, base int) int {
-	low := 0
-
-	for low <= high {
-
-		mid := (low + high) / 2
-
-		upper := base * (2 ^ mid - 1)
-		lower := base * (2 ^ (mid - 1) - 1)
-
-		if lower < target && target <= upper {
-			return mid
-		}
-		if upper < target {
-			low = mid + 1
-		} else if lower >= target {
-			high = mid - 1
-		}
+// 英大文字小文字変換
+func flip(r rune) int {
+	if r >= 'a' && r <= 'z' {
+		return int(r - 'a' + 'A')
 	}
-	return -1
+	return int(r - 'A' + 'a')
+}
+
+// 数値から2進数で1の数をカウント
+func popcount(a int) int {
+	return bits.OnesCount(uint(a))
 }
 
 // --- init
