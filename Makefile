@@ -1,7 +1,7 @@
 
 # make i c=コンテストID t=問題ID
 i:
-	./shell/init.sh $(c) $(t)
+	./shell/init.sh $(c) $(t) $(diff)
 
 r:
 	./shell/run.sh

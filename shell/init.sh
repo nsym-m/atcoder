@@ -4,6 +4,12 @@ default_url="https://atcoder.jp/contests"
 current=$(pwd)
 contest=$1
 task=$2
+diff=$3
+
+# 通常のコンテストはタスク名が"コンテスト名_a~g"になっているが、たまに違うものがあるため違う時だけdiffをyesにして実行する
+if [ "$diff" != "yes" ]; then
+    task="${contest}_${task}"
+fi
 
 url="${default_url}/${contest}/tasks/${task}"
 
