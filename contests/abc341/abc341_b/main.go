@@ -21,23 +21,38 @@ func main() {
 	st := readIntsList(n-1, 2)
 	max := 0
 	fmt.Printf("aa: %#+v\n", aa)
+	fmt.Printf("st: %#+v\n", st)
+	fmt.Printf("max: %#+v\n", max)
 
 	// 順に回すのでなくnの最後が一番多くなるように回さないといけない
-	for i := 0; i < n-2; i++ {
+	skipcontinue := 0
+	i := 0
+	for {
+		if aa[i] < st[i][0] {
+			skipcontinue++
+			if skipcontinue == n {
+				break
+			}
+			continue
+		}
+
+		skipcontinue = 0
+		aa[i] -= st[i][0]
+		aa[i+1] += st[i][1]
 		if aa[i] > max {
 			max = aa[i]
 		}
-		if aa[i] >= st[i][0] {
-			aa[i] -= st[i][0]
-			aa[i+1] += st[i][1]
-		}
-		if aa[i] > max {
-			max = aa[i]
+		if aa[i+1] > max {
+			max = aa[i+1]
 		}
 		fmt.Printf("aa: %#+v\n", aa)
+		i++
+		if i == n-1 {
+			i = 0
+		}
 	}
 
-	print(aa[n-1])
+	print(max)
 }
 
 // --- init
@@ -146,6 +161,14 @@ func sToI(s string) int {
 		panic(err)
 	}
 	return i
+}
+
+func maxInts(a []int) int {
+	ans := 0
+	for _, v := range a {
+		ans = max(v, ans)
+	}
+	return ans
 }
 
 func max(a, b int) int {
