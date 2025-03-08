@@ -199,6 +199,14 @@ func min(a, b int) int {
 	return b
 }
 
+func makeMap[T comparable](list []T) map[T]struct{} {
+	m := make(map[T]struct{}, len(list))
+	for _, v := range list {
+		m[v] = struct{}{}
+	}
+	return m
+}
+
 type Queue struct {
 	data [][2]int
 	size int
