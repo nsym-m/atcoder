@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"runtime"
 	"sort"
 	"strconv"
 	"strings"
@@ -199,6 +200,13 @@ func min(a, b int) int {
 	return b
 }
 
+func min64(a, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func makeMap[T comparable](list []T) map[T]struct{} {
 	m := make(map[T]struct{}, len(list))
 	for _, v := range list {
@@ -260,7 +268,20 @@ func flush() {
 	}
 	if rec := recover(); rec != nil {
 		fmt.Printf("panic: %+v\n", rec)
+		fmt.Printf("stackTrace: %+v\n", stackTrace())
 	}
+}
+
+func stackTrace() string {
+	stackTrace := ""
+	for depth := 0; ; depth++ {
+		_, file, line, ok := runtime.Caller(depth)
+		if !ok {
+			break
+		}
+		stackTrace += fmt.Sprintf("%02d: %v:%d\n", depth+1, file, line)
+	}
+	return stackTrace
 }
 
 func print(v ...interface{}) {
