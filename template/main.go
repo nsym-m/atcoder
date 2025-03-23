@@ -17,7 +17,7 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	defer flush()
 
-	n, x := int2()
+	n := int1()
 	a := ints(n)
 	res := []int{}
 	for _, v := range a {
